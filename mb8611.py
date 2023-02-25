@@ -69,9 +69,8 @@ def is_modem_accessible(config, timeout):
     print("Cannot check modem accessibility, missing required config values")
 
   try:
-    response = requests.get(config['Navigation']['ModemAddress'], timeout=timeout, verify=False)
-  except requests.RequestException as e:
-    print("Request exception: " + str(e))
+    requests.get(config['Navigation']['ModemAddress'], timeout=timeout, verify=False)
+  except requests.RequestException:
     return False
   
   return True
