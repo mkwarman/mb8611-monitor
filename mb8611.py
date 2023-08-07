@@ -51,6 +51,7 @@ def get_software_version_from_element(driver):
 
 def get_software_version(config, headless=True):
   driver = get_driver(headless)
+  current_version = None
 
   try:
     navigate_to_modem(driver, config)
@@ -58,8 +59,10 @@ def get_software_version(config, headless=True):
     login(driver, config)
     current_version = get_software_version_from_element(driver)
   except Exception as e:
+    print("Unable to retrieve modem version")
     print(e)
     driver.get_screenshot_as_file("screenshot.png")
+    current_version = "undefined"
 
   driver.close()
   return current_version
