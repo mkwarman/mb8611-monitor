@@ -8,9 +8,9 @@ from mb8611 import get_software_version, is_modem_accessible
 
 CONFIG_FILE = '.env'
 TEST_WEBSITE = 'http://www.google.com/'
-INTERNET_TIMEOUT = 1
-MODEM_TIMEOUT = 1
-POLL_DELAY_SECONDS = 5
+INTERNET_TIMEOUT = 3
+MODEM_TIMEOUT = 3
+POLL_DELAY_SECONDS = 15
 
 
 def get_config():
@@ -60,6 +60,8 @@ def handle_status_change(database: MonitorDatabase, config: ConfigParser):
 
     if (current_software != database.current_version):
       print(f"{datetime.now().isoformat()} - Modem firmware version changed: {database.current_version} -> {current_software}")
+    else:
+      print(f"{datetime.now().isoformat()} - Modem firmware version did not change")
 
     database.modem_up(current_software)
   else: database.modem_down()
